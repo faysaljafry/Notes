@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bootstrap Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1 class="text-center">The NoteBook</h1>
+
+      <button
+        type="button"
+        class="btn btn-danger btn-lg text-center"
+        data-toggle="modal"
+        data-target="#myModal"
+      >
+        Click to Add a Note
+      </button>
+
+      <div id="myModal" class="modal fade bg-light" role="dialog">
+        <div
+          class="modal-dialog"
+          style="
+            width: 100% !important;
+            height: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            max-width: none !important;
+          "
+        >
+          <div class="modal-content">
+            <div class="modal-header text-center">
+              <h6 class="modal-title">Enter the Note</h6>
+              <button type="button" class="close" data-dismiss="modal">
+                &times;
+              </button>
+            </div>
+            <div class="modal-body">
+              <textarea
+                class="text-area text-box multi-line"
+                data-val="true"
+                data-val-length="Maximum = 2045 characters"
+                data-val-length-max="2045"
+                id="noteinfo"
+                name="info"
+                cols="40"
+                rows="3"
+              ></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">
+                Close
+              </button>
+              <button
+                type="button"
+                onclick="saveNote()"
+                class="btn btn-info"
+                data-dismiss="modal"
+                id="saveNote"
+              >
+                Save Note
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--This is the cards generation area-->
+    <div class="card-columns mt-5" id="cards"></div>
+    <script>
+      var arrayNotes = [];
+    </script>
+    <script>
+      //arrayNotes.push
+      function saveNote() {
+        arrayNotes.push(document.getElementById("noteinfo").value);
+        localStorage.setItem("pastNotes", JSON.stringify(arrayNotes));
+
+        document.getElementById(
+          "cards"
+        ).innerHTML += `<div class = "card bg-dark px-2 mt-2">
+                    <div class = "mx-auto card-block" >
+                        <p class = "card-title"><h3 class = "text-center">Note</h3></p>
+                        <p id = "cardId" class = "card-text text-light text-center">${
+                          document.getElementById("noteinfo").value
+                        }</p>
+                    </div>
+                </div>`;
+      }
+
+      window.onload = function () {
+        var x = localStorage.getItem("pastNotes");
+        var x2 = JSON.parse(x);
+        alert.x2;
+        var index = 0;
+        if (x2 != null) {
+          for (index = 0; index < x2.length; index++) {
+            document.getElementById(
+              "cards"
+            ).innerHTML += `<div class = "card bg-dark px-2 mt-2">
+                    <div class = "mx-auto card-block" >
+                        <p class = "card-title"><h3 class = "text-center">Note</h3></p>
+                        <p id = "cardId" class = "card-text text-light text-center">${x2[index]}</p>
+                    </div>
+                </div>`;
+          }
+          //localStorage.removeItem("pastNotes")
+        }
+      };
+    </script>
+  </body>
+</html>
